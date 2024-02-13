@@ -67,7 +67,7 @@ miaoWM.fullScreenWatermark(FID, text, ColorData);
 // FID： 图片唯一识别码
 // text： 水印内容
 // ColorData：水印颜色 格式：{0-255},{0-255},{0-255} 标准RGB色值
-// gain：水印增益 调整水印深浅 防止水印过多遮挡原画面
+// gain：0-1 水印增益 调整水印深浅 防止水印过多遮挡原画面
 miaoWM.edgeWatermark(FID, text, ColorData, gain);
 
 
