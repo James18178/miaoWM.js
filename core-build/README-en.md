@@ -1,7 +1,7 @@
 
-# miaoWM-core 编译指南
+# miaoWM-core build guide
 
-## 安装 Emscripten
+## install Emscripten
 ```bash
 # Get the emsdk repo
 $ git clone https://github.com/emscripten-core/emsdk.git
@@ -22,24 +22,24 @@ $ source ./emsdk_env.sh
 $ emcc -v
 ```
 
-## 在安装OpenCV之前，需要处理一下
+## Before Building Opencv
 
 ```bash
 $ git clone --depth=1 -b 4.5.1 https://github.com/opencv/opencv.git opencv/sources
 ```
 
-在构建OpenCV之前，必须自定义一些构建设置。
-在编辑器中打开 `opencv/sources/platforms/js/build_js.py` 并做如下修改：
+Before building OpenCV, some build settings have to be customized.  
+Open `opencv/sources/platforms/js/build_js.py` by an editor, and change the following settings.
 
 ```plain
 # In def get_cmake_cmd(self)
 
-# 将这些设置打开，这是构建所必需的
+# Turn these settings to ON, which are necessary for building
 -DWITH_JPEG=OFF               -> ON
 -DWITH_PNG=OFF                -> ON
 -DBUILD_opencv_imgcodecs=OFF  -> ON
 
-# （可选）将这些设置设置为OFF以加速构建
+# (Optional) Turn these settings to OFF to accelerate building
 -DWITH_QUIRC=ON               -> OFF
 -DBUILD_ZLIB=ON               -> OFF
 -DBUILD_opencv_calib3d=ON     -> OFF
@@ -52,7 +52,7 @@ $ git clone --depth=1 -b 4.5.1 https://github.com/opencv/opencv.git opencv/sourc
 -DBUILD_PERF_TESTS=ON         -> OFF
 ```
 
-## 构建 OpenCV
+## Build OpenCV
 
 ```bash
 # change directory to opencv
@@ -61,34 +61,43 @@ $ cd opencv
 $ emcmake python ./sources/platforms/js/build_js.py build_wasm --build_wasm
 ```
 
-### 完成依赖构建
+### Finalize Dependency Builds
 
 ```bash
 $ cd build_wasm
 $ emmake make
 ```
 
-### 验证依赖项工件
+### Verify Dependency Artifacts
 
-确保在你的OpenCV构建目录中存在以下文件：
+Now, the following files should exist
 
 `opencv/build_wasm/lib/libopencv_imgcodecs.a`  
 `opencv/build_wasm/3rdparty/lib/liblibjpeg-turbo.a`  
 `opencv/build_wasm/3rdparty/lib/liblibpng.a`
 
-## 构建 miaoWM-core
+## Build miaoWM-core
 
-### 修改 `CMakeLists.txt` 文件
+### Modify `CMakeLists.txt` if necessary
 
+> If your `opencv` directory is at the same level as the `core-build` directory, like so:
+>
+> ```
+> .
+> ├── opencv
+> └── core-build
+> ```
+>
+> then you can skip this step as it is unnecessary.
 
-打开 `CMakeLists.txt` 文件, 将 `OPENCV_DIR` 改为你自己的 `opencv` 目录.
+Open `CMakeLists.txt`, modify the value of `OPENCV_DIR` to the path to your `opencv` directory.
 
 ```cmake
 set(OPENCV_DIR "/path/to/opencv")
 set(EMSDK_DIR "/path/to/emsdk")
 ```
 
-### 生成构建文件
+### Make build files
 
 ```bash
 # change directory to penguin-recognizer
@@ -103,7 +112,7 @@ $ emcmake cmake ..
 # -- Build files have been written to: ./watermask_wasm/build
 ```
 
-### 完事了，构建~
+### Finalize
 
 ```bash
 $ emmake make
