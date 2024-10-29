@@ -162,7 +162,7 @@ cv::Mat edge_watermark_lib(cvx::CvxFont& font_ttf, const std::string& image_path
     cv::Mat occupied = cv::Mat::zeros(edges.size(), CV_8UC1);
     cv::Mat layer(h, w, CV_8UC4, cv::Scalar(0, 0, 0, 0));
     cv::Point text_position;
-    cv::Size text_size(7 + text.length(), font_size);
+    cv::Size text_size(7 * text.length(), font_size);
     for (int y = 0; y < edges.rows; y++) {
         for (int x = 0; x < edges.cols; x++) {
             if (edges.at<uchar>(y, x) != 0 && can_place_text(x, y, occupied, text_size, edges)) {
