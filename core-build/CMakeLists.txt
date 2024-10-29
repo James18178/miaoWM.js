@@ -22,6 +22,11 @@ set(EMSDK_DIR "~/Documents/emsdk")
 # Does not work
 # find_package(OpenCV REQUIRED PATHS "${OPENCV_DIR}/build_wasm" NO_DEFAULT_PATH)
 
+# Add Freetype
+find_package(Freetype REQUIRED)
+include_directories(${FREETYPE_INCLUDE_DIRS})
+target_link_libraries(watermark ${FREETYPE_LIBRARIES})
+
 # Needed for opencv2/opencv.hpp
 include_directories("${OPENCV_DIR}/sources/include")
 
