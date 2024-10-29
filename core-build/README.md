@@ -12,7 +12,7 @@ $ cd emsdk
 # Download and install the SDK tools.
 $ ./emsdk install 1.39.4
 
-# Make the "latest" SDK "active" for the current user. (writes .emscripten file)
+# 确保一定使用这个版本 不然会编译不成功
 $ ./emsdk activate 1.39.4
 
 # Activate PATH and other environment variables in the current terminal
