@@ -21,6 +21,20 @@ $ source ./emsdk_env.sh
 # Check installation
 $ emcc -v
 ```
+## 编译 Freetype
+```bash
+# Get freetype package
+$ wget https://nchc.dl.sourceforge.net/project/freetype/freetype2/2.13.3/freetype-2.13.3.tar.xz
+$ tar -xJvf freetype-2.13.3.tar.xz
+
+# Enter that directory
+$ cd freetype-2.13.3
+
+# Build
+$ mkdir build && cd build
+$ emcmake cmake .. -DCMAKE_CXX_FLAGS="-s ENVIRONMENT=web"
+$ emmake make -j16
+```
 
 ## 在安装OpenCV之前，需要处理一下
 
@@ -106,7 +120,7 @@ $ emcmake cmake ..
 ### 完事了，构建~
 
 ```bash
-$ emmake make
+$ emmake make -j16
 # make: ['make']
 # -- Configuring done
 # -- Generating done
