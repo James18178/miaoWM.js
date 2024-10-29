@@ -14,7 +14,7 @@ using namespace cvx;
 
 using namespace emscripten;
 
-static const std::string version = "miaoWM-release-v1.0.0";
+static const std::string version = "miaoWM-release-v1.0.2";
 
 static const std::string opencv_version = CV_VERSION;
 
