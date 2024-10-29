@@ -14,6 +14,11 @@ endif(NOT CMAKE_BUILD_TYPE)
 set(OPENCV_DIR "./opencv")
 # endif(NOT OPENCV_DIR)
 
+# change the path to freetype if necessary
+# if(NOT FREETYPE_DIR)
+set(FREETYPE_DIR "./freetype")
+# endif(NOT FREETYPE_DIR)
+
 # change the path to emsdk if necessary
 # if(NOT EMSDK_DIR)
 set(EMSDK_DIR "~/Documents/emsdk")
@@ -48,7 +53,14 @@ file(GLOB 3rdparty_include_modules "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/*/inclu
 include_directories(${3rdparty_include_modules})
 
 # Recognize executable
-add_executable(watermark "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
+add_executable(watermark 
+"${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/src/CvxFont.cpp")
+
+# Add Freetype
+include_directories("${FREETYPE_DIR}/include")
+file(GLOB freetype_libs "${FREETYPE_DIR}/build/*.a")
+target_link_libraries(watermark ${freetype_libs})
 
 # Link to opencv.js precompiled libraries
 file(GLOB opencv_libs "${OPENCV_DIR}/build_wasm/lib/*.a")
