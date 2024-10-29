@@ -90,6 +90,9 @@ $ emmake make
 `opencv/build_wasm/3rdparty/lib/liblibjpeg-turbo.a`  
 `opencv/build_wasm/3rdparty/lib/liblibpng.a`
 
+确保在你的freetype构建目录中存在以下文件：
+`freetype-2.13.3/build/libfreetype.a`
+
 ## 构建 miaoWM-core
 
 ### 修改 `CMakeLists.txt` 文件
@@ -100,6 +103,7 @@ $ emmake make
 ```cmake
 set(OPENCV_DIR "/path/to/opencv")
 set(EMSDK_DIR "/path/to/emsdk")
+set(FREETYPE_DIR "/path/to/freetype")
 ```
 
 ### 生成构建文件
