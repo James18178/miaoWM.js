@@ -25,6 +25,7 @@ miaoWM.js 是一个基于openCV的轻量化在线水印工具，使用了wasm技
 | 普通水印 |  ![example](./example-pic/example.jpg)    |  ![example-1](./example-pic/example-1.png)
 | 全屏水印 |  ![example](./example-pic/example.jpg)    |  ![example-2](./example-pic/example-2.png)
 | 线稿描边 |  ![example](./example-pic/example.jpg)    |  ![example-3](./example-pic/example-3.png)
+| 中文显示 |  ![example](./example-pic/example.jpg)    |  ![example-3](./example-pic/example-4.png)
 
 ## 如何使用？
 
