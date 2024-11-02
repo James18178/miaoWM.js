@@ -1,5 +1,5 @@
 import watermark_Module from './watermark.js';
-import { md5 } from './md5.min.js';
+import md5  from './md5.min.js';
 function _isValidFormat(input) {
     const pattern = /^(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})$/;
     return pattern.test(input);
@@ -8,6 +8,34 @@ function _isValidFormat(input) {
 var MWM_obj;
 var core_is_init = false;
 var miaoWM = {
+    OnMessage: function( message ) {
+        message = message.data;
+        var post_data = {};
+        switch(message.command){
+            case "coreInit":{ // 内核初始化
+                post_data = this.init();
+            }
+            case "setFile":{ // 设置文件
+                post_data = {fileID: this.setFile(this.message?.fileData, this.message?.isFont)};
+            }
+            case "getVersion":{ // 获取内核版本
+                post_data = this.getVersion();
+            }
+            case "simpleWatermark":{ // 简单水印
+                post_data = {base64Data: this.simpleWatermark(this.message?.fontID, this.message?.picID, this.message?.text, this.message?.color)};
+            }
+            case "fullScreenWatermark": { // 全屏水印
+                post_data = {base64Data: this.fullScreenWatermark(this.message?.fontID, this.message?.picID, this.message?.text, this.message?.color)};
+            }
+            case "edgeWatermark": { // 边缘水印
+                post_data = {base64Data: this.edgeWatermark(this.message?.fontID, this.message?.picID, this.message?.text, this.message?.color, this.message?.fontSize)};
+            }
+            default: {
+                post_data = {message: "command error"};
+            }
+        }
+        self.postMessage(post_data);
+    },
     init: function(){
         MWM_obj = watermark_Module();
         setTimeout(function(){
@@ -99,4 +127,5 @@ var miaoWM = {
     },
 };
 
-export { miaoWM };
+// bind message
+self.onmessage = miaoWM.OnMessage.bind(this);
