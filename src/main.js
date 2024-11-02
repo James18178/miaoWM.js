@@ -14,24 +14,31 @@ var miaoWM = {
         switch(message.command){
             case "coreInit":{ // 内核初始化
                 post_data = miaoWM.init();
+                break;
             }
             case "setFile":{ // 设置文件
                 post_data = {fileID: miaoWM.setFile(message.data?.fileData, message.data?.isFont)};
+                break;
             }
             case "getVersion":{ // 获取内核版本
                 post_data = miaoWM.getVersion();
+                break;
             }
             case "simpleWatermark":{ // 简单水印
                 post_data = {base64Data: miaoWM.simpleWatermark(message.data?.fontID, message.data?.picID, message.data?.text, message.data?.color)};
+                break;
             }
             case "fullScreenWatermark": { // 全屏水印
                 post_data = {base64Data: miaoWM.fullScreenWatermark(message.data?.fontID, message.data?.picID, message.data?.text, message.data?.color)};
+                break;
             }
             case "edgeWatermark": { // 边缘水印
                 post_data = {base64Data: miaoWM.edgeWatermark(message.data?.fontID, message.data?.picID, message.data?.text, message.data?.color, message.data?.fontSize)};
+                break;
             }
             default: {
                 post_data = {message: "command error"};
+                break;
             }
         }
         self.postMessage(post_data);
