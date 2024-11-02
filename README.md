@@ -52,7 +52,6 @@ worker.postMessage({ command: "getVersion" });
 // 设置文件（图片，字体）
 // isFont bool值 用于确定上传的是图片还是字体 不传默认图片
 worker.postMessage({ command: "setFile", data: { fileData, isFont } });
-// miaoWM.setFile(image_data, isFont);
 
 // 举个例子
 axios.get("example.png",{params: {}, responseType: 'arraybuffer'}).then((res)=>{
@@ -86,8 +85,6 @@ worker.postMessage({ command: "fullScreenWatermark", data: { fontID, picID, text
 // gain：0-1 水印增益 调整水印深浅 防止水印过多遮挡原画面
 // fontSize：字体大小 0-100 调整字体大小
 worker.postMessage({ command: "edgeWatermark", data: { fontID, picID, text, color, gain, fontSize } });
-
-
 ```
 
 ## 问题
