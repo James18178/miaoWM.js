@@ -42,7 +42,7 @@ worker.onmessage = function (params) {
 // ***所有数据在onmessage中返回***
 
 // 初始化内核
-worker.postMessage({ command: "init" });
+worker.postMessage({ command: "coreInit" });
 
 // 获取系统的版本
 worker.postMessage({ command: "getVersion" });
