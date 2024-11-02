@@ -48,7 +48,7 @@ var miaoWM = {
         setTimeout(function(){
             core_is_init = true;
             console.log('\n' + ' %c MiaoWM ' + MWM_obj.version + ' v' + MWM_obj.opencv_version + ' %c https://github.com/James18178/MiaoWM.js ' + '\n', 'color: #03a9f4; background: #030307; padding:5px 0;', 'background: #03a9f4; padding:5px 0;');
-        },100);
+        },500);
     },
     setFile: function(file_data, isFont){
         var file_suffix = "png";
