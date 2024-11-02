@@ -13,7 +13,7 @@ var miaoWM = {
         var post_data = {};
         switch(message.command){
             case "coreInit":{ // 内核初始化
-                post_data = miaoWM.init();
+                miaoWM.init();
                 break;
             }
             case "setFile":{ // 设置文件
