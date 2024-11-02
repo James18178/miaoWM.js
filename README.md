@@ -1,4 +1,4 @@
-# miaoWM.js: 在线轻量化水印工具
+# miaoWM.js: 在线轻量化水印工具 - Worker版
 
 > 小提示：miaoWM.js 的核心代码与编译教程已经放在了 `core-build` 目录中了，有自定义需求的请自取哈
 > 
