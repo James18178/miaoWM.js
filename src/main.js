@@ -13,22 +13,22 @@ var miaoWM = {
         var post_data = {};
         switch(message.command){
             case "coreInit":{ // 内核初始化
-                post_data = this.init();
+                post_data = miaoWM.init();
             }
             case "setFile":{ // 设置文件
-                post_data = {fileID: this.setFile(this.message?.fileData, this.message?.isFont)};
+                post_data = {fileID: miaoWM.setFile(message.data?.fileData, message.data?.isFont)};
             }
             case "getVersion":{ // 获取内核版本
-                post_data = this.getVersion();
+                post_data = miaoWM.getVersion();
             }
             case "simpleWatermark":{ // 简单水印
-                post_data = {base64Data: this.simpleWatermark(this.message?.fontID, this.message?.picID, this.message?.text, this.message?.color)};
+                post_data = {base64Data: miaoWM.simpleWatermark(message.data?.fontID, message.data?.picID, message.data?.text, message.data?.color)};
             }
             case "fullScreenWatermark": { // 全屏水印
-                post_data = {base64Data: this.fullScreenWatermark(this.message?.fontID, this.message?.picID, this.message?.text, this.message?.color)};
+                post_data = {base64Data: miaoWM.fullScreenWatermark(message.data?.fontID, message.data?.picID, message.data?.text, message.data?.color)};
             }
             case "edgeWatermark": { // 边缘水印
-                post_data = {base64Data: this.edgeWatermark(this.message?.fontID, this.message?.picID, this.message?.text, this.message?.color, this.message?.fontSize)};
+                post_data = {base64Data: miaoWM.edgeWatermark(message.data?.fontID, message.data?.picID, message.data?.text, message.data?.color, message.data?.fontSize)};
             }
             default: {
                 post_data = {message: "command error"};
