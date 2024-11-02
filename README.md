@@ -29,64 +29,63 @@ miaoWM.js 是一个基于openCV的轻量化在线水印工具，使用了wasm技
 
 ## 如何使用？
 
-HTML 页面导入
-
-```html
-<!-- 在html文件的头部添加 -->
-<script src="miaoWM.min.js"></script>
-```
-
-VUE 等导入
+Worker 导入
 ```js
-const miaoWM = require('./miaoWM.js').miaoWM;
+const worker = new Worker("miaoWM.worker.js");
+worker.onmessage = function (params) {
+    console.log(params);
+}c
 ```
 
 可用模式
 ```js
+// ***所有数据在onmessage中返回***
+
 // 初始化内核
-miaoWM.init();
+worker.postMessage({ command: "init" });
 
 // 获取系统的版本
-miaoWM.getVersion();
+worker.postMessage({ command: "getVersion" });
 // 返回：内核版本和openCV版本
 // 样例：{coreVersion: 'release-v1.0.0', openCVVersion: '4.5.1'}
 
 // 设置文件（图片，字体）
 // isFont bool值 用于确定上传的是图片还是字体 不传默认图片
-miaoWM.setFile(image_data, isFont);
+worker.postMessage({ command: "setFile", data: { fileData, isFont } });
+// miaoWM.setFile(image_data, isFont);
 
 // 举个例子
 axios.get("example.png",{params: {}, responseType: 'arraybuffer'}).then((res)=>{
-    var PID = miaoWM.setFile(new Int8Array(res.data), false); // PID 为用于确定图片的唯一识别码
+    worker.postMessage({ command: "setFile", data: { fileData: new Int8Array(res.data), isFont: false } }); // PID 为用于确定图片的唯一识别码
 })
 
 // 来设置个字体
 axios.get("example.ttf",{params: {}, responseType: 'arraybuffer'}).then((res)=>{
-    var FID = miaoWM.setFile(new Int8Array(res.data), true); // FID 为用于确定字体的唯一识别码
+    worker.postMessage({ command: "setFile", data: { fileData: new Int8Array(res.data), isFont: true } }); // FID 为用于确定字体的唯一识别码
 })
 
 // 普通水印
-// FID： 字体唯一识别码
-// PID： 图片唯一识别码
+// fontID： 字体唯一识别码
+// picID： 图片唯一识别码
 // text： 水印内容
-// ColorData：水印颜色 格式：{0-255},{0-255},{0-255} 标准RGB色值
-miaoWM.simpleWatermark(FID, PID, text, ColorData);
+// color：水印颜色 格式：{0-255},{0-255},{0-255} 标准RGB色值
+worker.postMessage({ command: "simpleWatermark", data: { fontID, picID, text, color } });
 
 // 全屏水印
-// FID： 字体唯一识别码
-// PID： 图片唯一识别码
+// fontID： 字体唯一识别码
+// picID： 图片唯一识别码
 // text： 水印内容
-// ColorData：水印颜色 格式：{0-255},{0-255},{0-255} 标准RGB色值
-miaoWM.fullScreenWatermark(FID, PID, text, ColorData);
+// color：水印颜色 格式：{0-255},{0-255},{0-255} 标准RGB色值
+worker.postMessage({ command: "fullScreenWatermark", data: { fontID, picID, text, color } });
 
 // 线稿描边
-// FID： 字体唯一识别码
-// PID： 图片唯一识别码
+// fontID： 字体唯一识别码
+// picID： 图片唯一识别码
 // text： 水印内容
-// ColorData：水印颜色 格式：{0-255},{0-255},{0-255} 标准RGB色值
+// color：水印颜色 格式：{0-255},{0-255},{0-255} 标准RGB色值
 // gain：0-1 水印增益 调整水印深浅 防止水印过多遮挡原画面
 // fontSize：字体大小 0-100 调整字体大小
-miaoWM.edgeWatermark(FID, PID, text, ColorData, gain, fontSize);
+worker.postMessage({ command: "edgeWatermark", data: { fontID, picID, text, color, gain, fontSize } });
 
 
 ```
