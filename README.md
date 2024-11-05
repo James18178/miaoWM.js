@@ -34,7 +34,7 @@ Worker 导入
 const worker = new Worker("miaoWM.worker.js");
 worker.onmessage = function (params) {
     console.log(params);
-}c
+}
 ```
 
 可用模式
